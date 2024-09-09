@@ -1,8 +1,10 @@
-from aqt.utils import showInfo
 from pathlib import Path
 from .vendor import load_yaml, SafeYamlLoader
 from .deck import use_deck
 from .model import use_model
+from .note import import_notes
+
+from aqt.utils import showInfo
 
 def get_project(filename):
     project = None
@@ -41,5 +43,10 @@ def load_data(filename):
     project = get_project(filename)
     deck_id = use_deck(project['deck']['name'])
     model = use_model(project['model'])
+
+    field_type = {i['name']: i['format'] for i in project['model']['fields']}
+    note_index = [i['name'] for i in project['model']['fields'] if i['index']]
+
     if project:
+        import_notes(deck = deck_id, model = model, data = project['data'], field_type = field_type, note_index = note_index)
         showInfo(f"Loaded deck: {project['deck']['name']}")

@@ -1,0 +1,76 @@
+deck:
+  name: 'Language::Romance::Latin::Vocabulary'
+
+model:
+  name: 'Latin Vocabulary'
+  kind: 'normal'
+  style:
+    css: ./model/latn-simple.css
+    latex:
+      prefix: ./model/latex-prefix.tex
+      postfix: ./model/latex-postfix.tex
+  templates:
+    - name: Recognize
+      qfmt: ./model/recognize-qfmt-simple.html
+      afmt: ./model/recognize-afmt-simple.html
+    - name: Recall
+      qfmt: ./model/recall-qfmt-simple.html
+      afmt: ./model/recall-afmt-simple.html
+  fields:
+    - name: Phrase
+      template: ./template/Phrase.html
+      format: markdown
+      index: true
+      rtl: false
+      font:
+        name: Liberation Sans
+        size: 12
+      description: Bla bla bla
+    - name: Grammar
+      template: ./template/Grammar.html
+      format: text
+      index: true
+      rtl: false
+      font:
+        name: Liberation Sans
+        size: 12
+      description: Bla bla bla
+    - name: Transcription
+      template: ./template/Transcription.html
+      format: markdown
+      index: false
+      rtl: false
+      font:
+        name: Liberation Sans
+        size: 12
+      description: Bla bla bla
+    - name: Translation
+      template: ./template/Translation.html
+      format: markdown
+      index: false
+      rtl: false
+      font:
+        name: Liberation Sans
+        size: 12
+      description: Bla bla bla
+    - name: Notes
+      template: ./template/Notes.html
+      format: markdown
+      index: false
+      rtl: false
+      font:
+        name: Liberation Sans
+        size: 12
+      description: Bla bla bla
+
+audio: []
+video: []
+image: []
+
+data:
+  - filename: ./data/01.csv
+    tags: ['01']
+  - filename: ./data/02.csv
+    tags: ['02']
+  - filename: ./data/03.csv
+    tags: ['03']
