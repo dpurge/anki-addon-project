@@ -3,6 +3,8 @@ import hashlib
 
 from aqt.utils import showInfo
 
+from .vendor import load_yaml, SafeYamlLoader
+
 from .format import format_text, format_markdown
 
 def read_csv(filename):
@@ -10,8 +12,14 @@ def read_csv(filename):
         data = list(csv.DictReader(f, delimiter='\t'))
     return data
 
+def read_yaml(filename):
+    with filename.open() as f:
+        data = load_yaml(filename, Loader=SafeYamlLoader)
+    return data
+
 reader = {
-    '.csv': read_csv
+    '.csv': read_csv,
+    '.yml': read_yaml
 }
 
 format = {
