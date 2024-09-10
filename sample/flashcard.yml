@@ -18,7 +18,7 @@ model:
       afmt: ./model/recall-afmt-simple.html
   fields:
     - name: Phrase
-      template: ./template/Phrase.html
+      template: ./template/Phrase.txt
       format: markdown
       index: true
       rtl: false
@@ -27,7 +27,7 @@ model:
         size: 12
       description: Bla bla bla
     - name: Grammar
-      template: ./template/Grammar.html
+      template: ./template/Grammar.txt
       format: text
       index: true
       rtl: false
@@ -36,27 +36,25 @@ model:
         size: 12
       description: Bla bla bla
     - name: Transcription
-      template: ./template/Transcription.html
+      template: ./template/Transcription.txt
       format: markdown
-      index: false
       rtl: false
       font:
         name: Liberation Sans
         size: 12
       description: Bla bla bla
     - name: Translation
-      template: ./template/Translation.html
+      template: ./template/Translation.txt
       format: markdown
-      index: false
+      merge: true
       rtl: false
       font:
         name: Liberation Sans
         size: 12
       description: Bla bla bla
     - name: Notes
-      template: ./template/Notes.html
+      template: ./template/Notes.txt
       format: markdown
-      index: false
       rtl: false
       font:
         name: Liberation Sans

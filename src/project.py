@@ -1,4 +1,6 @@
 from pathlib import Path
+from string import Template
+
 from .vendor import load_yaml, SafeYamlLoader
 from .deck import use_deck
 from .model import use_model
@@ -45,8 +47,17 @@ def load_data(filename):
     model = use_model(project['model'])
 
     field_type = {i['name']: i['format'] for i in project['model']['fields']}
-    note_index = [i['name'] for i in project['model']['fields'] if i['index']]
+    note_index = [i['name'] for i in project['model']['fields'] if 'index' in i and i['index']]
+    merge_fields = [i['name'] for i in project['model']['fields'] if 'merge' in i and i['merge']]
+    field_template = {i['name']: Template(i['template'].read_text()) for i in project['model']['fields']}
 
     if project:
-        import_notes(deck = deck_id, model = model, data = project['data'], field_type = field_type, note_index = note_index)
+        import_notes(
+            deck = deck_id,
+            model = model,
+            data = project['data'],
+            field_type = field_type,
+            note_index = note_index,
+            merge_fields = merge_fields,
+            field_template = field_template)
         showInfo(f"Loaded deck: {project['deck']['name']}")
