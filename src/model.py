@@ -21,6 +21,15 @@ def use_model(model):
             models.add_template(m, t)
         models.add(m)
 
+    style = model['style'] if 'style' in model else None
+    if style:
+        if style['css']: m["css"] = style['css'].read_text()
+        latex = style['latex'] if 'latex' in style else None
+        if latex:
+            if 'prefix' in latex: m["latexPre"] = latex['prefix'].read_text()
+            if 'postfix' in latex: m["latexPost"] = latex['postfix'].read_text()
+            if 'svg' in latex: m["latexsvg"] = latex['svg']
+
     existing_fields = models.field_names(m)
     for i in existing_fields:
         if not i in expected_fields:
@@ -31,8 +40,15 @@ def use_model(model):
             f = models.new_field(i)
             models.add_field(notetype=m, field=f)
 
-    m["css"] = model['style']['css'].read_text()
-
+    for f in m['flds']:
+        fld = next((x for x in model['fields'] if x['name'] == f['name']), None)
+        if 'rtl' in fld: f['rtl'] = fld['rtl']
+        if 'description' in fld: f['description'] = fld['description']
+        
+        font = fld['font'] if 'font' in fld else None
+        if font:
+            if font['name']: f['font'] = font['name']
+            if font['size']: f['size'] = font['size']
 
     models.save(m)
     return m

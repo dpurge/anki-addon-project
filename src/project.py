@@ -25,9 +25,13 @@ def get_project(filename):
         
     basedir = project_file.parent
 
-    project['model']['style']['css'] = basedir / project['model']['style']['css']
-    project['model']['style']['latex']['prefix'] = basedir / project['model']['style']['latex']['prefix']
-    project['model']['style']['latex']['postfix'] = basedir / project['model']['style']['latex']['postfix']
+    style = project['model']['style'] if 'style' in project['model'] else None
+    if style:
+        if 'css' in style: style['css'] = basedir / style['css']
+        latex = style['latex'] if 'latex' in style else None
+        if latex:
+            if 'prefix' in latex: latex['prefix'] = basedir / latex['prefix']
+            if 'postfix' in latex: latex['postfix'] = basedir / latex['postfix']
 
     for i in project['model']['templates']:
         i['qfmt'] = basedir / i['qfmt']
@@ -46,7 +50,7 @@ def load_data(filename):
     deck_id = use_deck(project['deck']['name'])
     model = use_model(project['model'])
 
-    field_type = {i['name']: i['format'] for i in project['model']['fields']}
+    field_type = {i['name']: i['format'] if 'format' in i else 'text' for i in project['model']['fields']}
     note_index = [i['name'] for i in project['model']['fields'] if 'index' in i and i['index']]
     merge_fields = [i['name'] for i in project['model']['fields'] if 'merge' in i and i['merge']]
     field_template = {i['name']: Template(i['template'].read_text()) for i in project['model']['fields']}

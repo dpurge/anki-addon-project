@@ -9,6 +9,7 @@ model:
     latex:
       prefix: ./model/latex-prefix.tex
       postfix: ./model/latex-postfix.tex
+      svg: False
   templates:
     - name: Recognize
       qfmt: ./model/recognize-qfmt-simple.html
@@ -30,7 +31,6 @@ model:
       template: ./template/Grammar.txt
       format: text
       index: true
-      rtl: false
       font:
         name: Liberation Sans
         size: 12
@@ -38,7 +38,6 @@ model:
     - name: Transcription
       template: ./template/Transcription.txt
       format: markdown
-      rtl: false
       font:
         name: Liberation Sans
         size: 12
@@ -47,7 +46,6 @@ model:
       template: ./template/Translation.txt
       format: markdown
       merge: true
-      rtl: false
       font:
         name: Liberation Sans
         size: 12
@@ -55,7 +53,6 @@ model:
     - name: Notes
       template: ./template/Notes.txt
       format: markdown
-      rtl: false
       font:
         name: Liberation Sans
         size: 12
@@ -70,5 +67,3 @@ data:
     tags: ['01']
   - filename: ./data/02.csv
     tags: ['02']
-  - filename: ./data/03.csv
-    tags: ['03']
