@@ -1,5 +1,5 @@
 from aqt import mw
-from anki.consts import MODEL_STD
+from anki.consts import MODEL_STD, MODEL_CLOZE 
 
 def use_model(model):
     expected_fields = [field['name'] for field in model['fields']]
@@ -9,15 +9,22 @@ def use_model(model):
 
     if not m:
         m = models.new(model['name'])
-        m["type"] = MODEL_STD
+        
+        if model['kind'] == 'normal':
+            m["type"] = MODEL_STD
+        elif model['kind'] == 'cloze':
+            m["type"] = MODEL_CLOZE
+        else:
+            raise f"Unsupported model kind: {model['kind']}"
+
         m["sortf"] = 0
         for i in expected_fields:
             f = models.new_field(i)
             models.add_field(notetype=m, field=f)
         for i in model['templates']:
             t = models.new_template(i['name'])
-            t['qfmt'] = i['qfmt'].read_text()
-            t['afmt'] = i['afmt'].read_text()
+            if 'qfmt' in i: t['qfmt'] = i['qfmt'].read_text()
+            if 'afmt' in i: t['afmt'] = i['afmt'].read_text()
             models.add_template(m, t)
         models.add(m)
 

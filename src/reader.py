@@ -14,7 +14,7 @@ def read_csv(filename):
 
 def read_yaml(filename):
     with filename.open() as f:
-        data = load_yaml(filename, Loader=SafeYamlLoader)
+        data = load_yaml(f, Loader=SafeYamlLoader)
     return data
 
 reader = {

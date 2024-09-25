@@ -34,8 +34,8 @@ def get_project(filename):
             if 'postfix' in latex: latex['postfix'] = basedir / latex['postfix']
 
     for i in project['model']['templates']:
-        i['qfmt'] = basedir / i['qfmt']
-        i['afmt'] = basedir / i['afmt']
+        if 'qfmt' in i: i['qfmt'] = basedir / i['qfmt']
+        if 'afmt' in i: i['afmt'] = basedir / i['afmt']
 
     for i in project['model']['fields']:
         i['template'] = basedir / i['template']
