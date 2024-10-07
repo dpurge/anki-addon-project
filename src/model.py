@@ -38,10 +38,10 @@ def use_model(model):
             if 'svg' in latex: m["latexsvg"] = latex['svg']
 
     existing_fields = models.field_names(m)
-    for i in existing_fields:
-        if not i in expected_fields:
-            f = models.new_field(i)
-            models.remove_field(notetype=m, field=f)
+    # for i in existing_fields:
+    #     if not i in expected_fields:
+    #         f = models.new_field(i)
+    #         models.remove_field(notetype=m, field=f)
     for i in expected_fields:
         if not i in existing_fields:
             f = models.new_field(i)
